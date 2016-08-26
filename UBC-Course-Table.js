@@ -14,6 +14,8 @@ jQuery(document).ready(function ($) {
     var bracket = ">";
     var wikiLink = '<a href="http://wiki.ubc.ca/Course:';
     //edge cases, courses with blogs
+    var lfs250 = '<a href="http://lfs250.landfood.ubc.ca/">'
+    var lfs350 = '<a href="http://lfs350.landfood.ubc.ca/">'
         //iterate over items array and discard irrevant entries
     for (i = 0; i < items.length; i++) {
         var curItem = items[i];
@@ -35,7 +37,14 @@ jQuery(document).ready(function ($) {
             var courseCode = trTag + tdTag + courseCode + strongEndTag + tdEndTag;
             var courseName = tdTag + strongTag + stringArray + tdEndTag;
             //edge cases for courses with blogs instead of wiki page
-            
+            if (onlyCourseCode === "LFS250") {
+                var thisLink = tdTag + lfs250 + "LFS250 Blog" + aEndTag + tdEndTag + trEndTag;
+                var curItemTag = courseCode + courseName + thisLink;
+            }
+            else if (onlyCourseCode === "LFS350") {
+                var thisLink = tdTag + lfs350 + "LFS350 Blog" + aEndTag + tdEndTag + trEndTag;
+                var curItemTag = courseCode + courseName + thisLink;
+            }
             else {
                 var thisWikiLink = tdTag + wikiLink + onlyCourseCode + '"' + bracket + "Wiki: " + onlyCourseCode + aEndTag + tdEndTag + trEndTag;
                 var curItemTag = courseCode + courseName + thisWikiLink;
@@ -45,7 +54,7 @@ jQuery(document).ready(function ($) {
     }
     $('#courses').DataTable({
         "search": {
-            "caseInsensitive": false
+            "caseInsensitive": true
         }
         , "pageLength": 20
         , "bLengthChange": false
@@ -54,5 +63,49 @@ jQuery(document).ready(function ($) {
     $("#searchbox").on("keyup search input paste cut", function () {
         dataTable.search(this.value).draw();
     });
-    
+    $("#AANB").click(function () {
+        $("#searchbox").val("AANB");
+        dataTable.search( 'AANB' ).draw();
+    });
+    $("#APBI").click(function () {
+        $("#searchbox").val("APBI");
+        dataTable.search( 'APBI' ).draw();
+    });
+    $("#FNH").click(function () {
+        $("#searchbox").val("FNH");
+        dataTable.search( 'FNH' ).draw();
+    });
+    $("#FOOD").click(function () {
+        $("#searchbox").val("FOOD");
+        dataTable.search( 'FOOD' ).draw();
+    });
+    $("#FRE").click(function () {
+        $("#searchbox").val("FRE");
+        dataTable.search( 'FRE' ).draw();
+    });
+    $("#GRS").click(function () {
+        $("#searchbox").val("GRS");
+        dataTable.search( 'GRS' ).draw();
+    });
+    $("#HUNU").click(function () {
+        $("#searchbox").val("HUNU");
+        dataTable.search( 'HUNU' ).draw();
+    });
+    $("#LFS").click(function () {
+        $("#searchbox").val("LFS");
+        dataTable.search( 'LFS' ).draw();
+    });
+    $("#PLNT").click(function () {
+        $("#searchbox").val("PLNT");
+        dataTable.search( 'PLNT' ).draw();
+    });
+    $("#SOIL").click(function () {
+        $("#searchbox").val("SOIL");
+        dataTable.search( 'SOIL' ).draw();
+    });
+    $("#go").click(function() {
+       $('html,body').animate({
+        scrollTop: $("#courses").offset().top},
+        'slow');
+    });
 });
